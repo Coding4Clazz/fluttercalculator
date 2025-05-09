@@ -40,6 +40,14 @@ class _TipCalculatorState extends State<TipCalculator> {
     return _billAmount + _tipAmount;
   }
 
+  //reset button
+  void _resetCalculator() {
+    setState(() {
+      _billController.clear();
+      _tipPercentage = 15;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +101,11 @@ class _TipCalculatorState extends State<TipCalculator> {
             Text(
               'Total: \$${_totalAmount.toStringAsFixed(2)}',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: _resetCalculator,
+              child: Text('Reset'),
             ),
           ],
         ),
