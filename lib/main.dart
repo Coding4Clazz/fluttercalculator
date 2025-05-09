@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 void main() => runApp(TipCalculatorApp());
 
 class TipCalculatorApp extends StatelessWidget {
+  const TipCalculatorApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,6 +16,8 @@ class TipCalculatorApp extends StatelessWidget {
 }
 
 class TipCalculator extends StatefulWidget {
+  const TipCalculator({super.key});
+
   @override
   _TipCalculatorState createState() => _TipCalculatorState();
 }
@@ -21,6 +25,20 @@ class TipCalculator extends StatefulWidget {
 class _TipCalculatorState extends State<TipCalculator> {
   final TextEditingController _billController = TextEditingController();
   double _tipPercentage = 15;
+
+  //calculations
+
+  double get _billAmount {
+    return double.tryParse(_billController.text) ?? 0.0;
+  }
+
+  double get _tipAmount {
+    return _billAmount * _tipPercentage / 100;
+  }
+
+  double get _totalAmount {
+    return _billAmount + _tipAmount;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +61,7 @@ class _TipCalculatorState extends State<TipCalculator> {
             ),
             SizedBox(height: 20),
             Text(
-              'Tip Percentage',
+              'Tip Percentage:',
               style: TextStyle(fontSize: 18),
             ),
             Row(
@@ -65,6 +83,16 @@ class _TipCalculatorState extends State<TipCalculator> {
                 SizedBox(width: 10),
                 Text('${_tipPercentage.toInt()}%'),
               ],
+            ),
+            SizedBox(height: 30),
+
+            Text(
+              'Tip: \$${_tipAmount.toStringAsFixed(2)}',
+              style:  TextStyle(fontSize: 18, color: const Color.fromARGB(255, 0, 213, 192)),
+            ),
+            Text(
+              'Total: \$${_totalAmount.toStringAsFixed(2)}',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
             ),
           ],
         ),
